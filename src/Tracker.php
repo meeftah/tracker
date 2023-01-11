@@ -52,8 +52,7 @@ class Tracker
         Router $route,
         LoggerInterface $logger,
         Laravel $laravel,
-        MessageRepository $messageRepository,
-        PublicIP $publicIP
+        MessageRepository $messageRepository
     ) {
         $this->config = $config;
 
@@ -68,8 +67,6 @@ class Tracker
         $this->laravel = $laravel;
 
         $this->messageRepository = $messageRepository;
-
-        $this->publicIP = $publicIP;
     }
 
     public function allSessions()
@@ -247,7 +244,7 @@ class Tracker
         $sessionData = [
             'user_id'      => $this->getUserId(),
             'device_id'    => $this->getDeviceId(),
-            'client_ip'    => $this->publicIP->IpAddress::getPublicIp(),
+            'client_ip'    => PublicIP::getPublicIp(),
             'geoip_id'     => $this->getGeoIpId(),
             'agent_id'     => $this->getAgentId(),
             'referer_id'   => $this->getRefererId(),
