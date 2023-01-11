@@ -26,7 +26,8 @@
         "pragmarx/datatables": "^1.4.12",
         "snowplow/referer-parser": "~0.1",
         "jaybizzle/crawler-detect": "~1.0",
-        "psr/log": "~1.0"
+        "psr/log": "~1.0",
+        "villaflor/laravel-ip-address": "^1.0"
     },
 
     "suggest": {

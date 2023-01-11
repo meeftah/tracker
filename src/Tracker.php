@@ -12,6 +12,7 @@ use PragmaRX\Tracker\Data\RepositoryManager as DataRepositoryManager;
 use PragmaRX\Tracker\Repositories\Message as MessageRepository;
 use PragmaRX\Tracker\Support\Minutes;
 use Psr\Log\LoggerInterface;
+use Villaflor\IpAddress\IpAddress as PublicIP;
 
 class Tracker
 {
@@ -33,6 +34,8 @@ class Tracker
 
     protected $sessionData;
 
+    protected $publicIP;
+
     protected $loggedItems = [];
 
     protected $booted = false;
@@ -49,7 +52,8 @@ class Tracker
         Router $route,
         LoggerInterface $logger,
         Laravel $laravel,
-        MessageRepository $messageRepository
+        MessageRepository $messageRepository,
+        PublicIP $publicIP
     ) {
         $this->config = $config;
 
@@ -64,6 +68,8 @@ class Tracker
         $this->laravel = $laravel;
 
         $this->messageRepository = $messageRepository;
+
+        $this->publicIP = $publicIP;
     }
 
     public function allSessions()
@@ -241,7 +247,7 @@ class Tracker
         $sessionData = [
             'user_id'      => $this->getUserId(),
             'device_id'    => $this->getDeviceId(),
-            'client_ip'    => $this->request->getClientIp(),
+            'client_ip'    => $this->publicIP->IpAddress::getPublicIp(),
             'geoip_id'     => $this->getGeoIpId(),
             'agent_id'     => $this->getAgentId(),
             'referer_id'   => $this->getRefererId(),
